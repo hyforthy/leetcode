@@ -97,17 +97,15 @@ class NumArray
   public:
     NumArray(vector<int> nums)
     {
-        // data.resize(nums.size());
-        data = nums;
+        
+        data.resize(nums.size());
         bit.resize(nums.size() + 1);
         /* 构造树状数组 */
-        for (int i = 1; i < bit.size(); i++)
+        for (int i = 0; i < nums.size(); i++)
         {
-            for (int j = i - 1; j >= i - (i & -i); j--)
-            {
-                bit[i] += nums[j];
-            }
+            update(i, nums[i]);
         }
+        //data = nums;
     }
 
     void update(int i, int val)
