@@ -79,11 +79,12 @@ public:
             pos_travel++;
 
             if (num_founded >= target_index.size()) {
-                return result / (num_founded + 0.0);
+                // return result / (num_founded + 0.0);
+                break;
             }
         }
 
-        return result / 2.0;
+        return result / (num_founded + 0.0);
     }
 };
 
