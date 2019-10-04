@@ -61,26 +61,48 @@
  * }
  * 
  */
+// class Solution {
+// public:
+//     int removeDuplicates(vector<int>& nums) {
+//         if (nums.size() <= 0)
+//             return 0;
+        
+//         vector<int>::iterator t = nums.begin();
+//         int pre = *t;
+//         int r = 1;
+
+//         for (t = t + 1; t != nums.end();) {
+//             if (*t == pre) {
+//                 t = nums.erase(t);
+//             } else {
+//                 pre = *t;
+//                 t++;
+//                 r++;
+//             }
+//         }
+//         return r;
+//     }
+// };
+
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.size() <= 0)
+        int l = nums.size();
+        if (l <= 0)
             return 0;
         
-        vector<int>::iterator t = nums.begin();
-        int pre = *t;
-        int r = 1;
-
-        for (t = t + 1; t != nums.end();) {
-            if (*t == pre) {
-                t = nums.erase(t);
-            } else {
-                pre = *t;
-                t++;
-                r++;
+        int r = 0;
+        for (int j = 1; j < l; j++) {
+            if (nums[r] == nums[j]) {
+                continue;
             }
+            if (j - r > 1) {
+                nums[r+1] = nums[j];
+            }
+            r++;
         }
-        return r;
+        return r + 1;
     }
 };
+
 

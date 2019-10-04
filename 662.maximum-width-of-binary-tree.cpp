@@ -105,18 +105,18 @@ class Solution
     {
         int result = 0;
         vector<int> mostLeftIdx;
-        bfs(root, 0, 0, mostLeftIdx, result);
+        dfs(root, 1, 0, mostLeftIdx, result);
         return result;
     }
-    void bfs(TreeNode *node, int deep, int idx, vector<int> &mostLeftIdx, int &res)
+    void dfs(TreeNode *node, int deep, int idx, vector<int> &mostLeftIdx, int &res)
     {
         if (!node)
             return;
-        if (deep >= mostLeftIdx.size())
+        if (deep > mostLeftIdx.size())
             mostLeftIdx.push_back(idx);
-        res = max(res, idx - mostLeftIdx[deep] + 1);
-        bfs(node->left, deep + 1, (idx - mostLeftIdx[deep]) * 2, mostLeftIdx, res);
-        bfs(node->right, deep + 1, (idx - mostLeftIdx[deep]) * 2 + 1, mostLeftIdx, res);
+        res = max(res, idx - mostLeftIdx[deep-1] + 1);
+        dfs(node->left, deep + 1, (idx - mostLeftIdx[deep-1]) * 2, mostLeftIdx, res);
+        dfs(node->right, deep + 1, (idx - mostLeftIdx[deep-1]) * 2 + 1, mostLeftIdx, res);
     }
 
     // int widthOfBinaryTree(TreeNode *root)

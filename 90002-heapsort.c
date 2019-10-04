@@ -24,7 +24,7 @@ void adjust(int *array, int n)
 
 void heapsort(int *array, int n)
 {
-	int i = n / 2;
+	int i = n / 2 - 1;
 	
 	for (; i >= 0; i--) {
 		adjust(array + i, n - i);

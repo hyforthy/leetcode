@@ -66,19 +66,40 @@
  * }
  * 
  */
+// class Solution {
+// public:
+//     int removeElement(vector<int>& nums, int val) {
+//         vector<int>::iterator t = nums.begin();
+
+//         while (t != nums.end()) {
+//             if (*t == val)
+//                 t = nums.erase(t);
+//             else
+//                 t++;
+//         }
+//         return nums.size();
+        
+//     }
+// };
+
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        vector<int>::iterator t = nums.begin();
-
-        while (t != nums.end()) {
-            if (*t == val)
-            t = nums.erase(t);
-            else
-            t++;
+        int l = nums.size();
+        if (l <= 0) {
+            return 0;
         }
-        return nums.size();
-        
+
+        int r = 0;
+        for (int i = 0; i < l; i++) {
+            if (nums[i] != val) {
+                if ( r != i) {
+                    nums[r] = nums[i];
+                }
+                r++;
+            }
+        }
+        return r;
     }
 };
 

@@ -46,32 +46,55 @@
  * Coud you solve it without converting the integer to a string?
  * 
  */
+// method one
+/////
+// class Solution {
+// public:
+// bool isPalindrome(int x) {
+//         if (x < 0)
+//             return false;
+        
+
+//         vector<int> elements;
+
+//         while (x) {
+//             int mod = x % 10;
+//             elements.push_back(mod);
+//             x = x / 10;
+//         }
+
+//         int i = 0, j = elements.size() - 1;
+//         while (i < j) {
+//             if (elements[i] != elements[j])
+//                 break;
+//             i++;
+//             j--;
+//         }
+
+//         if (i < j)
+//             return false;
+//         return true;
+//     }
+// };
+
 class Solution {
 public:
 bool isPalindrome(int x) {
         if (x < 0)
             return false;
-        
 
-        vector<int> elements;
+        long long r = 0;
+        long long reserve = x;
 
         while (x) {
-            int mod = x % 10;
-            elements.push_back(mod);
+            r = r * 10 + (x % 10);
             x = x / 10;
         }
 
-        int i = 0, j = elements.size() - 1;
-        while (i < j) {
-            if (elements[i] != elements[j])
-                break;
-            i++;
-            j--;
+        if (r == reserve) {
+            return true;
         }
-
-        if (i < j)
-            return false;
-        return true;
+        return false;
     }
 };
 

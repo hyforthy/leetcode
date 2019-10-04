@@ -65,6 +65,44 @@ class LO {
             return slow;
         }
 
+        // 2个链表的第一个公共节点
+        struct node * firstmeetingNode(struct node *head1, struct node *head2) {
+            int l1 = 0;
+            int l2 = 0;
+
+            struct node *n1 = head1;
+            while (n1) {
+                l1++;
+                n1 = n1->next;
+            }
+
+            struct node *n2 = head2;
+            while (n2) {
+                l2++;
+                n2 = n2->next;
+            }
+
+            n1 = head1;
+            n2 = head2;
+            while (l1 < l2) {
+                n2 = n2->next;
+                l2--;
+            }
+
+            while (l2 < l1) {
+                n1 = n2->next;
+                l1--;
+            }
+
+            while (n1 && n2) {
+                if (n1 == n2) {
+                    return n1;
+                }
+                n1 = n1->next;
+                n2 = n2->next;
+            }
+            return NULL;
+        }
 
     private:
         struct node * head;

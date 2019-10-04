@@ -37,35 +37,75 @@
  * Output: -1
  * 
  */
+// class Solution
+// {
+//   public:
+//     int search(vector<int> &nums, int target)
+//     {
+//         vector<int>::iterator it = nums.begin();
+//         if (nums.empty())
+//             return -1;
+//         int prev = *it;
+
+//         int middle = 1;
+//         for (it = it + 1; it != nums.end(); it++)
+//         {
+//             if (*it > prev)
+//             {
+//                 middle += 1;
+//                 prev = *it;
+//             }
+//             else
+//             {
+//                 break;
+//             }
+//         }
+
+//         int r = b_search(nums, 0, middle - 1, target);
+//         if (r >= 0)
+//             return r;
+//         r = b_search(nums, middle, nums.size() - 1, target);
+//         return r;
+//     }
+
+//   private:
+//     int b_search(vector<int> &nums, int begin, int end, int target)
+//     {
+//         while (begin <= end)
+//         {
+//             int middle = (begin + end) / 2;
+//             if (target > nums[middle])
+//             {
+//                 begin = middle + 1;
+//             }
+//             else if (target < nums[middle])
+//             {
+//                 end = middle - 1;
+//             }
+//             else
+//             {
+//                 return middle;
+//             }
+//         }
+//         return -1;
+//     }
+// };
+
+
 class Solution
 {
   public:
     int search(vector<int> &nums, int target)
     {
-        vector<int>::iterator it = nums.begin();
-        if (nums.empty())
-            return -1;
-        int prev = *it;
-
-        int middle = 1;
-        for (it = it + 1; it != nums.end(); it++)
-        {
-            if (*it > prev)
-            {
-                middle += 1;
-                prev = *it;
-            }
+        int begin = 0, end = int(nums.size()) - 1;
+        while (begin < end) {
+            int mid = (begin + end) / 2;
+            if ((nums[0] > target) ^ (nums[0] > nums[mid]) ^ (target > nums[mid]))
+                begin = mid + 1;
             else
-            {
-                break;
-            }
+                end = mid;
         }
-
-        int r = b_search(nums, 0, middle - 1, target);
-        if (r >= 0)
-            return r;
-        r = b_search(nums, middle, nums.size() - 1, target);
-        return r;
+        return begin == end && nums[begin] == target ? begin : -1;
     }
 
   private:
