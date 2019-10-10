@@ -57,8 +57,8 @@ func isUgly(num int) bool {
 	n := []int{2, 3, 5}
 
 	for _, v := range n {
-		for num%n == 0 {
-			num = num / n
+		for num%v == 0 {
+			num = num / v
 		}
 	}
 
