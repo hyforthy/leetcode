@@ -36,33 +36,103 @@
  * 
  * 
  */
+// class Solution {
+// public:
+//     int reversePairs(vector<int>& nums) {
+//         int res = 0, n = nums.size();
+//         vector<int> v = nums, bit(n + 1);
+//         sort(v.begin(), v.end());
+//         unordered_map<int, int> m;
+//         for (int i = 0; i < n; ++i) m[v[i]] = i + 1;
+//         for (int i = n - 1; i >= 0; --i) {
+//             res += getSum(lower_bound(v.begin(), v.end(), nums[i] / 2.0) - v.begin(), bit);
+//             update(m[nums[i]], bit);
+//         }
+//         return res;
+//     }
+//     int getSum(int i, vector<int>& bit) {
+//         int sum = 0;
+//         while (i > 0) {
+//             sum += bit[i];
+//             i -= (i & -i);
+//         }
+//         return sum;
+//     }
+//     void update(int i, vector<int>& bit) {
+//         while (i < bit.size()) {
+//             bit[i] += 1;
+//             i += (i & -i);
+//         }
+//     }
+// };
+
+// 归并方式求逆序对
 class Solution {
 public:
     int reversePairs(vector<int>& nums) {
-        int res = 0, n = nums.size();
-        vector<int> v = nums, bit(n + 1);
-        sort(v.begin(), v.end());
-        unordered_map<int, int> m;
-        for (int i = 0; i < n; ++i) m[v[i]] = i + 1;
-        for (int i = n - 1; i >= 0; --i) {
-            res += getSum(lower_bound(v.begin(), v.end(), nums[i] / 2.0) - v.begin(), bit);
-            update(m[nums[i]], bit);
+        if (nums.size() <= 0) {
+            return 0;
         }
-        return res;
+        vector<int> tmp(nums.size());
+         return merge_sort(nums, 0, nums.size() - 1, tmp);
     }
-    int getSum(int i, vector<int>& bit) {
-        int sum = 0;
-        while (i > 0) {
-            sum += bit[i];
-            i -= (i & -i);
+
+    int merge_sort(vector<int>& nums, int begin, int end, vector<int> &tmp) {
+
+        if (end - begin == 0) {
+            tmp[begin] = nums[begin];
+            return 0;
         }
-        return sum;
-    }
-    void update(int i, vector<int>& bit) {
-        while (i < bit.size()) {
-            bit[i] += 1;
-            i += (i & -i);
+
+        int mid = begin + (end - begin)/2;
+
+        int count = merge_sort(nums, begin, mid, tmp) + merge_sort(nums, mid + 1, end,tmp);
+
+        int i = begin;
+        int j = mid + 1;
+        while (i <= mid && j <= end) {
+            if (((long long)(tmp[i])) > 2 * ((long long)(tmp[j]))) {
+                j++;
+            } else {
+                count += j - mid - 1;
+                i++;
+            }
         }
+
+        while (i <= mid) {
+            count += j - mid - 1;
+            i++;
+        }
+
+        i = begin;
+        j = mid + 1;
+        vector<int> tmp1;
+        while (i <= mid && j <= end) {
+            if (tmp[i] > tmp[j]) {
+                tmp1.push_back(tmp[j]);
+                j++;
+            } else {
+                tmp1.push_back(tmp[i]);
+                i++;
+            }
+        }
+
+        while (i <= mid) {
+            tmp1.push_back(tmp[i]);
+            i++;
+        }
+        while (j <= end) {
+            tmp1.push_back(tmp[j]);
+            j++;
+        }
+
+        i = 0;
+        while (i <= end - begin) {
+            tmp[i + begin] = tmp1[i];
+            i++;
+        }
+
+        return count;
     }
 };
 

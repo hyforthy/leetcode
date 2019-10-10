@@ -98,10 +98,3 @@ func MinNumber(nums []int) string {
 
 	return result
 }
-
-// Q4
-// 丑数：只包含质因数2、3、5的数是丑数，例如6、8是丑数，但7、14不是，因为含质因数7。
-// 求第n个丑数，规定1是第一个丑数。
-func GetUglyNum(n int) int {
-
-}
