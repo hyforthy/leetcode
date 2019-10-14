@@ -1,3 +1,7 @@
+// 桌子上零散地放着若干个盒子，桌子的后方是一堵墙。
+// 现在从桌子前射来一束平行光， 把盒子的影子投射到了墙上。问影子的总宽度是多少？
+// 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -82,9 +86,19 @@ void Find(Node *root,int a,int b, int *count)
 	
 	if (!root)
 		return;
+
+	if (a >= b) {
+		return;
+	}
+
+	if (a >= root->rvalue || b <= root->lvalue) {
+		return;
+	}
 	
 	if(root->data > 0) {
-		*count += (root->rvalue - root->lvalue);  
+		int rMin = root->rvalue <= b ? root->rvalue : b;
+		int lMax = root->lvalue >= a ? root->lvalue : a;
+		*count += (rMin - lMax);  
 		return;  
 	}
 	
@@ -113,7 +127,7 @@ int main()
 	int count = 0;
 	int i;
 	
-	Node *root = Build(9, 101);
+	Node *root = Build(3, 101);
 	
 	for (i = 0; i < sizeof(value) / sizeof(value[0]); i++)
 		Insert(root, value[i][0], value[i][1]);

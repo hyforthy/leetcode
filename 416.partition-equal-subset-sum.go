@@ -53,6 +53,7 @@
  */
 
 // @lc code=start
+// 0-1背包问题
 // func canPartition(nums []int) bool {
 // 	sum := 0
 // 	for _, v := range nums {
@@ -128,6 +129,24 @@ func canPartition(nums []int) bool {
 	return dp[(l1-1)&1][l2-1]
 
 }
+
+// func canPartition(nums []int) bool {
+// 	sort.Ints(nums)
+
+// 	l1 := len(nums)
+// 	sum1 := 0
+// 	sum2 := 0
+
+// 	for i := l1 - 1; i >= 0; i-- {
+// 		if sum1 >= sum2 {
+// 			sum2 += nums[i]
+// 		} else {
+// 			sum1 += nums[i]
+// 		}
+// 	}
+
+// 	return sum1 == sum2
+// }
 
 // @lc code=end
 
