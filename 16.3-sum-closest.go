@@ -1,4 +1,5 @@
 import (
+	"fmt"
 	"math"
 	"sort"
 )
@@ -33,18 +34,56 @@ import (
  */
 
 // @lc code=start
+// func threeSumClosest(nums []int, target int) int {
+// 	sort.Ints(nums)
+// 	res := 0
+// 	l1 := len(nums)
+
+// 	abs := math.MaxFloat64
+// 	for i := 0; i < l1; i++ {
+// 		to := target - nums[i]
+
+// 		begin := i + 1
+// 		end := l1 - 1
+
+// 		for begin < end {
+// 			sum := nums[begin] + nums[end]
+
+// 			t := math.Abs(float64(sum - to))
+// 			if abs > t {
+// 				abs = t
+// 				res = sum + nums[i]
+// 			}
+
+// 			if sum < to {
+// 				begin++
+// 			} else if sum > to {
+// 				end--
+// 			} else {
+// 				return target
+// 			}
+
+// 		}
+// 	}
+// 	return res
+// }
+
 func threeSumClosest(nums []int, target int) int {
 	sort.Ints(nums)
 	res := 0
 	l1 := len(nums)
 
 	abs := math.MaxFloat64
-	for i := 0; i < l1; i++ {
-		to := target - nums[i]
+	for i := 0; i < l1-2; {
+		if i > 0 && nums[i] == nums[i-1] {
+			i++
+			continue
+		}
 
+		to := target - nums[i]
 		begin := i + 1
 		end := l1 - 1
-
+		fmt.Println(i)
 		for begin < end {
 			sum := nums[begin] + nums[end]
 
@@ -63,6 +102,13 @@ func threeSumClosest(nums []int, target int) int {
 			}
 
 		}
+
+		if nums[i+1]+nums[i+2] > to {
+			break
+		}
+
+		i++
+
 	}
 	return res
 }

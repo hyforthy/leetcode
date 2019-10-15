@@ -71,7 +71,7 @@
 // 	for i := 0; i < l1; i++ {
 // 		dp[i] = make([]bool, l2)
 // 	}
-// 	dp[0][0] = true
+// 	dp[0][0] = true // dp[i][j]含义：前i个元素中可否找出部分元素使其和为j，可以：true，不可以：false
 
 // 	for i := 1; i < l1; i++ {
 // 		for j := 0; j < l2; j++ {

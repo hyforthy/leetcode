@@ -272,3 +272,38 @@ func CheckAndPrintRank(myInput []int) {
 }
 
 ///////
+
+// Q5
+// 一个正整数的数组，分成两堆，使两堆差值的绝对值最小，请获取此绝对值
+//
+func GetMinMinus(myInput []int) int {
+	l1 := len(myInput)
+	if l1 <= 0 {
+		return -1
+	}
+
+	sum := 0
+	for i := 0; i < l1; i++ {
+		sum += myInput[i]
+	}
+	l2 := sum >> 1
+
+	dp := make([][]int, l1+1)
+	for i := 0; i < l1+1; i++ {
+		dp[i] = make([]int, l2+1)
+	}
+
+	for i := 1; i <= l1; i++ {
+		for j := 1; j <= l2; j++ {
+			dp[i][j] = dp[i-1][j]
+			if myInput[i-1] <= j && dp[i-1][j-myInput[i-1]]+myInput[i-1] > dp[i][j] {
+				dp[i][j] = dp[i-1][j-myInput[i-1]] + myInput[i-1]
+			}
+
+		}
+	}
+
+	return sum - (dp[l1][l2] << 1)
+}
+
+///////

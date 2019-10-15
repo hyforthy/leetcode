@@ -38,6 +38,54 @@ import "sort"
  */
 
 // @lc code=start
+// func threeSum(nums []int) [][]int {
+// 	sort.Ints(nums)
+
+// 	var res [][]int
+
+// 	l1 := len(nums)
+
+// 	for i := 0; i < l1; {
+// 		target := -nums[i]
+// 		begin := i + 1
+// 		end := l1 - 1
+
+// 		for begin < end {
+// 			sum := nums[begin] + nums[end]
+// 			if sum < target {
+// 				begin++
+// 				continue
+// 			}
+// 			if sum > target {
+// 				end--
+// 				continue
+// 			}
+
+// 			if sum == target {
+// 				res = append(res, []int{nums[i], nums[begin], nums[end]})
+
+// 				second := nums[begin]
+// 				third := nums[end]
+// 				for begin < end && second == nums[begin] {
+// 					begin++
+// 				}
+
+// 				for begin < end && third == nums[end] {
+// 					end--
+// 				}
+// 			}
+// 		}
+
+// 		j := i + 1
+// 		for j < l1 && nums[i] == nums[j] {
+// 			j++
+// 		}
+// 		i = j
+// 	}
+
+// 	return res
+// }
+
 func threeSum(nums []int) [][]int {
 	sort.Ints(nums)
 
@@ -45,8 +93,22 @@ func threeSum(nums []int) [][]int {
 
 	l1 := len(nums)
 
-	for i := 0; i < l1; {
+	for i := 0; i < l1-2; {
+		if i > 0 && nums[i] == nums[i-1] {
+			i++
+			continue
+		}
+
 		target := -nums[i]
+		if nums[i+1]+nums[i+2] > target {
+			break
+		}
+
+		if nums[l1-1]+nums[l1-2] < target {
+			i++
+			continue
+		}
+
 		begin := i + 1
 		end := l1 - 1
 
@@ -75,12 +137,7 @@ func threeSum(nums []int) [][]int {
 				}
 			}
 		}
-
-		j := i + 1
-		for j < l1 && nums[i] == nums[j] {
-			j++
-		}
-		i = j
+		i++
 	}
 
 	return res
