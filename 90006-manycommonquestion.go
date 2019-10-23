@@ -329,3 +329,36 @@ func MergeTwoLists(l1, l2 *ListNode) *ListNode {
 }
 
 //////////////
+
+// Q7
+// 括号合法性，括号种类: (), {}, []
+func ValidParentheses(s string) bool {
+	l1 := len(s)
+	if l1 <= 0 {
+		return true
+	}
+
+	mm := map[uint8]uint8{
+		')': '(',
+		'}': '{',
+		']': '[',
+	}
+
+	stack := make([]uint8, l1)
+	pos := 0
+	stack[pos] = s[0]
+
+	for i := 1; i < l1; i++ {
+		if pos >= 0 && mm[s[i]] == stack[pos] {
+			pos--
+		} else {
+			pos++
+			stack[pos] = s[i]
+			if _, ok := mm[s[i]]; ok {
+				break
+			}
+		}
+	}
+
+	return pos < 0
+}
