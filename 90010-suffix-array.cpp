@@ -13,7 +13,7 @@ int cmp(int *r, int a, int b, int l)
 }
  
 /* douling algrithm 求字符串r的后缀数组，r最后一个字符是人为设定的0('\0')，
- * 后缀数组sa实际从sa[1]还是有效(sa[0]就是那个人为设定的0)
+ * 后缀数组sa实际从sa[1]开始有效(sa[0]就是那个人为设定的0)
  */
 void CalSA(int *r, int *sa, int n, int m)
 {
