@@ -85,24 +85,44 @@
  */
 
 // @lc code=start
+// func isMatch(s string, p string) bool {
+// 	m, n := len(s), len(p)
+// 	cur := make([]bool, n+1)
+
+// 	for i := 0; i <= m; i++ {
+// 		pre := cur[0]
+// 		cur[0] = i == 0
+// 		for j := 1; j <= n; j++ {
+// 			temp := cur[j]
+// 			if p[j-1] == '*' {
+// 				cur[j] = cur[j-2] || (i != 0 && cur[j] && (s[i-1] == p[j-2] || p[j-2] == '.'))
+// 			} else {
+// 				cur[j] = i != 0 && pre && (s[i-1] == p[j-1] || p[j-1] == '.')
+// 			}
+// 			pre = temp
+// 		}
+// 	}
+// 	return cur[n]
+// }
+
 func isMatch(s string, p string) bool {
 	m, n := len(s), len(p)
-	cur := make([]bool, n+1)
+	dp := make([][]bool, m+1)
+	for i := 0; i < m+1; i++ {
+		dp[i] = make([]bool, n+1)
+	}
+	dp[0][0] = true
 
 	for i := 0; i <= m; i++ {
-		pre := cur[0]
-		cur[0] = i == 0
 		for j := 1; j <= n; j++ {
-			temp := cur[j]
 			if p[j-1] == '*' {
-				cur[j] = cur[j-2] || (i != 0 && cur[j] && (s[i-1] == p[j-2] || p[j-2] == '.'))
+				dp[i][j] = j != 1 && (dp[i][j-2] || (i != 0 && dp[i-1][j] && (s[i-1] == p[j-2] || p[j-2] == '.')))
 			} else {
-				cur[j] = i != 0 && pre && (s[i-1] == p[j-1] || p[j-1] == '.')
+				dp[i][j] = i != 0 && dp[i-1][j-1] && (s[i-1] == p[j-1] || p[j-1] == '.')
 			}
-			pre = temp
 		}
 	}
-	return cur[n]
+	return dp[m][n]
 }
 
 // @lc code=end
