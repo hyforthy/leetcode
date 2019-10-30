@@ -41,6 +41,7 @@
  */
 
 // @lc code=start
+// the top answer in c++ is wrong for {"121","121","121","121"}
 func palindromePairs(words []string) [][]int {
 	var res [][]int
 
