@@ -362,3 +362,42 @@ func ValidParentheses(s string) bool {
 
 	return pos < 0
 }
+
+// Q8
+// 多个不同整数元素，每个元素可以有多个，求所有的排列组合，
+// 比如：2个3, 3个2, 1个1的排列组合
+func GetXRank(data map[int]int) [][]int {
+	var res [][]int
+
+	totalN := 0
+	for _, v := range data {
+		totalN += v
+	}
+
+	path := make([]int, totalN)
+	nowN := 0
+	GetXRank_(data, totalN, nowN, path, &res)
+
+	fmt.Println(len(res))
+	return res
+}
+
+func GetXRank_(data map[int]int, totalN, nowN int, path []int, res *[][]int) {
+	if totalN == nowN {
+		x := make([]int, totalN)
+		copy(x, path)
+		*res = append(*res, x)
+		return
+	}
+
+	for k, v := range data {
+		if v <= 0 {
+			continue
+		}
+		path[nowN] = k
+		data[k]--
+		GetXRank_(data, totalN, nowN+1, path, res)
+		data[k]++
+	}
+
+}
