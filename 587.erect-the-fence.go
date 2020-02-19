@@ -60,8 +60,65 @@
 
 // @lc code=start
 func outerTrees(points [][]int) [][]int {
+	l1 := len(points)
+	if l1 < 4 {
+		return points
+	}
 
+	first := 0
+	for i := 1; i < l1; i++ {
+		if points[i][0] > points[first][0] ||
+			(points[i][0] == points[first][0] && points[i][1] > points[first][1]) {
+			continue
+		}
+		first = i
+	}
+
+	res := [][]int{points[first]}
+
+	cur := first
+	for {
+		next := 0
+		for i := 1; i < l1; i++ {
+			if i == cur {
+				continue
+			}
+
+			cp := outerTreesCrossProduct(points[cur], points[i], points[next])
+			if cp > 0 {
+				next = i
+			} else if cp == 0 && outerTreesDist(points[cur], points[i]) > outerTreesDist(points[cur], points[next]) {
+				next = i
+			}
+		}
+
+		for i := 0; i < l1; i++ {
+			// 与next同线的点放入结果集中
+			cp := outerTreesCrossProduct(points[cur], points[i], points[next])
+			if cp == 0 && i != cur && i != next {
+				res = append(res, points[i])
+			}
+		}
+
+		cur = next
+
+		if cur == first {
+			break
+		}
+
+		res = append(res, points[next])
+	}
+
+	return res
+}
+
+// 叉积，（x1,y1）和（x2,y2）两个向量叉积： x1*y2-x2*y1, A和B的叉积为正，则A逆时针转向B，肯定说的是转小角
+func outerTreesCrossProduct(a, b, c []int) int {
+	return (b[0]-a[0])*(c[1]-a[1]) - (c[0]-a[0])*(b[1]-a[1])
+}
+
+func outerTreesDist(a, b []int) int {
+	return (b[0]-a[0])*(b[0]-a[0]) + (b[1]-a[1])*(b[1]-a[1])
 }
 
 // @lc code=end
-

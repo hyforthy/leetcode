@@ -1,3 +1,5 @@
+import "math"
+
 /*
  * @lc app=leetcode id=329 lang=golang
  *
@@ -50,8 +52,50 @@
 
 // @lc code=start
 func longestIncreasingPath(matrix [][]int) int {
+	rowN := len(matrix)
+	if rowN == 0 {
+		return 0
+	}
+	columnN := len(matrix[0])
+	if columnN == 0 {
+		return 0
+	}
+	dp := make([][]int, rowN)
+	for i := 0; i < rowN; i++ {
+		dp[i] = make([]int, columnN)
+	}
 
+	m := 0
+	for i := 0; i < rowN; i++ {
+		for j := 0; j < columnN; j++ {
+			x := longestIncreasingPathDFS(matrix, dp, rowN, columnN, i, j)
+			m = int(math.Max(float64(m), float64(x)))
+		}
+	}
+	return m
+}
+
+func longestIncreasingPathDFS(matrix [][]int, dp [][]int, rowN, columnN, r, c int) int {
+	if dp[r][c] > 0 {
+		return dp[r][c]
+	}
+	m := 1
+
+	if c-1 >= 0 && matrix[r][c-1] > matrix[r][c] {
+		m = int(math.Max(float64(m), float64(longestIncreasingPathDFS(matrix, dp, rowN, columnN, r, c-1)+1)))
+	}
+	if c+1 < columnN && matrix[r][c+1] > matrix[r][c] {
+		m = int(math.Max(float64(m), float64(longestIncreasingPathDFS(matrix, dp, rowN, columnN, r, c+1)+1)))
+	}
+	if r-1 >= 0 && matrix[r-1][c] > matrix[r][c] {
+		m = int(math.Max(float64(m), float64(longestIncreasingPathDFS(matrix, dp, rowN, columnN, r-1, c)+1)))
+	}
+	if r+1 < rowN && matrix[r+1][c] > matrix[r][c] {
+		m = int(math.Max(float64(m), float64(longestIncreasingPathDFS(matrix, dp, rowN, columnN, r+1, c)+1)))
+	}
+
+	dp[r][c] = m
+	return m
 }
 
 // @lc code=end
-

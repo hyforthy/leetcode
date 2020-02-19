@@ -1,3 +1,5 @@
+import "math"
+
 /*
  * @lc app=leetcode id=563 lang=golang
  *
@@ -55,8 +57,20 @@
  * }
  */
 func findTilt(root *TreeNode) int {
+	_, tilt := findTilt_(root)
 
+	return tilt
+}
+
+func findTilt_(root *TreeNode) (int, int) {
+	if root == nil {
+		return 0, 0
+	}
+
+	lSum, lTilt := findTilt_(root.Left)
+	rSum, rTilt := findTilt_(root.Right)
+
+	return lSum + rSum + root.Val, lTilt + rTilt + int(math.Abs(float64(lSum-rSum)))
 }
 
 // @lc code=end
-

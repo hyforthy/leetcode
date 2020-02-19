@@ -77,6 +77,4 @@ func checkPalindrome(words []string, i, j int) bool {
 	}
 	return true
 }
-
 // @lc code=end
-
