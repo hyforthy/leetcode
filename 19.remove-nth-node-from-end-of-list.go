@@ -47,28 +47,35 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	if head == nil {
 		return nil
 	}
+
+	if n <= 0 {
+		return head
+	}
 	p := head
-	for n > 0 && p != nil {
+	for n > 0 && p.Next != nil {
 		p = p.Next
 		n--
 	}
 
-	if n > 0 {
+	if n == 1 {
+		head = head.Next
 		return head
 	}
-	if p == nil {
-		return head.Next
+
+	if n > 1 {
+		return head
 	}
 
-	f := head
+	pre := head
 
 	for p.Next != nil {
+		pre = pre.Next
 		p = p.Next
-		f = f.Next
 	}
-	f.Next = f.Next.Next
+
+	pre.Next = pre.Next.Next
+
 	return head
 }
 
 // @lc code=end
-

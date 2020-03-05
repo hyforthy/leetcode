@@ -80,7 +80,7 @@ func longestUnivaluePath_(root *TreeNode, maxLen *int) int {
 	if root == nil {
 		return 0
 	}
-
+	// 可以认为是节点数
 	left := longestUnivaluePath_(root.Left, maxLen)
 	right := longestUnivaluePath_(root.Right, maxLen)
 	if root.Left == nil || root.Left.Val != root.Val {
@@ -95,4 +95,3 @@ func longestUnivaluePath_(root *TreeNode, maxLen *int) int {
 }
 
 // @lc code=end
-

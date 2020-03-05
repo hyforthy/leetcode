@@ -91,24 +91,24 @@
 //     }
 // };
 
-
 class Solution
 {
-  public:
+public:
     int search(vector<int> &nums, int target)
     {
         int begin = 0, end = int(nums.size()) - 1;
-        while (begin < end) {
+        while (begin <= end)
+        {
             int mid = (begin + end) / 2;
             if ((nums[0] > target) ^ (nums[0] > nums[mid]) ^ (target > nums[mid]))
                 begin = mid + 1;
             else
-                end = mid;
+                end = mid - 1;
         }
-        return begin == end && nums[begin] == target ? begin : -1;
+        return begin < int(nums.size()) && nums[begin] == target ? begin : -1;
     }
 
-  private:
+private:
     int b_search(vector<int> &nums, int begin, int end, int target)
     {
         while (begin <= end)

@@ -105,6 +105,7 @@
 // 	return cur[n]
 // }
 
+// @lc code=start
 func isMatch(s string, p string) bool {
 	m, n := len(s), len(p)
 	dp := make([][]bool, m+1)
@@ -126,4 +127,3 @@ func isMatch(s string, p string) bool {
 }
 
 // @lc code=end
-

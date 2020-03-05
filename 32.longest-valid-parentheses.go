@@ -39,31 +39,24 @@ func longestValidParentheses(s string) int {
 	res := 0
 	l1 := len(s)
 
-	posNum := make([]int, l1)
+	dp := make([]int, l1+1)
+	cnt := 0
 
-	leftNum := 0
-	nowNum := 0
-	for i := 0; i < l1; i++ {
-		if s[i] == '(' {
-			leftNum++
-			nowNum = 0
+	for i := 1; i <= l1; i++ {
+		if s[i-1] == '(' {
+			cnt++
 			continue
 		}
-		if s[i] == ')' {
-			if leftNum > 0 {
-				leftNum--
-				if i-nowNum-2 >= 0 {
-					nowNum = posNum[i-nowNum-2] + nowNum + 2
-				} else {
-					nowNum = nowNum + 2
-				}
+		if cnt > 0 {
+			cnt--
+			dp[i] = 2
+			if s[i-2] == ')' {
+				dp[i] += dp[i-1]
+			}
 
-				posNum[i] = nowNum
-				if nowNum > res {
-					res = nowNum
-				}
-			} else {
-				nowNum = 0
+			dp[i] += dp[i-dp[i]]
+			if dp[i] > res {
+				res = dp[i]
 			}
 		}
 	}
@@ -72,4 +65,3 @@ func longestValidParentheses(s string) int {
 }
 
 // @lc code=end
-

@@ -41,40 +41,27 @@ func swapPairs(head *ListNode) *ListNode {
 	var pre *ListNode = nil
 
 	p := head
-	for {
-		if p == nil {
-			if pre != nil {
-				pre.Next = nil
-			}
-			break
-		}
+	for p != nil && p.Next != nil {
+		q := p.Next
+		next := q.Next
+		q.Next = p
 
-		n := p.Next
-		if n == nil {
-			if res == nil {
-				res = p
-				break
-			}
-			if pre != nil {
-				pre.Next = p
-			}
-			break
-		}
-
-		if res == nil {
-			res = n
-		}
-
-		nxt := n.Next
 		if pre != nil {
-			pre.Next = n
+			pre.Next = q
+		} else {
+			res = q
 		}
+
 		pre = p
-		n.Next = p
-		p = nxt
+		p = next
 	}
+	if pre != nil {
+		pre.Next = p
+	} else {
+		res = p
+	}
+
 	return res
 }
 
 // @lc code=end
-

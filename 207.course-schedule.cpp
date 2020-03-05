@@ -53,43 +53,56 @@
 
 // @lc code=start
 // bfs遍历，入度
-class Solution {
+class Solution
+{
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+    {
         graph g = buildGraph(numCourses, prerequisites);
         vector<int> degrees = computeIndegrees(g);
-        for (int i = 0; i < numCourses; i++) {
+        for (int i = 0; i < numCourses; i++)
+        {
             int j = 0;
-            for (; j < numCourses; j++) {
-                if (!degrees[j]) {
+            for (; j < numCourses; j++)
+            {
+                if (!degrees[j])
+                {
                     break;
                 }
             }
-            if (j == numCourses) {
+            if (j == numCourses)
+            {
                 return false;
             }
             degrees[j]--;
-            for (int v : g[j]) {
+            for (int v : g[j])
+            {
                 degrees[v]--;
             }
         }
         return true;
     }
+
 private:
     typedef vector<vector<int>> graph;
-    
-    graph buildGraph(int numCourses, vector<vector<int>>& prerequisites) {
+
+    graph buildGraph(int numCourses, vector<vector<int>> &prerequisites)
+    {
         graph g(numCourses);
-        for (auto p : prerequisites) {
+        for (auto p : prerequisites)
+        {
             g[p[1]].push_back(p[0]);
         }
         return g;
     }
-    
-    vector<int> computeIndegrees(graph& g) {
+
+    vector<int> computeIndegrees(graph &g)
+    {
         vector<int> degrees(g.size(), 0);
-        for (auto adj : g) {
-            for (int v : adj) {
+        for (auto adj : g)
+        {
+            for (int v : adj)
+            {
                 degrees[v]++;
             }
         }
@@ -97,4 +110,3 @@ private:
     }
 };
 // @lc code=end
-

@@ -45,6 +45,34 @@ import (
  */
 
 // @lc code=start
+// func readBinaryWatch(num int) []string {
+// 	var res []string
+// 	doRead(&res, num, 0, 0, 1)
+// 	return res
+// }
+
+// func doRead(res *[]string, num int, hour, minute int, pos uint) {
+
+// 	if num == 0 {
+// 		*res = append(*res, strconv.Itoa(hour)+":"+fmt.Sprintf("%02d", minute))
+// 		return
+// 	}
+
+// 	for i := pos; i <= 10; i++ {
+// 		if i >= 5 {
+// 			if minute+1<<(10-i) >= 60 {
+// 				continue
+// 			}
+// 			doRead(res, num-1, hour, minute+1<<(10-i), i+1)
+// 		} else {
+// 			if hour+1<<(4-i) >= 12 {
+// 				continue
+// 			}
+// 			doRead(res, num-1, hour+1<<(4-i), minute, i+1)
+// 		}
+// 	}
+// }
+
 func readBinaryWatch(num int) []string {
 	var res []string
 	doRead(&res, num, 0, 0, 1)
@@ -74,4 +102,3 @@ func doRead(res *[]string, num int, hour, minute int, pos uint) {
 }
 
 // @lc code=end
-

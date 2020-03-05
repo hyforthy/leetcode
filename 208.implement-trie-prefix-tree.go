@@ -38,27 +38,80 @@
  */
 
 // @lc code=start
+
 type Trie struct {
+	Node  [26]*Trie
+	Total int
 }
 
 /** Initialize your data structure here. */
 func Constructor() Trie {
-
+	return Trie{}
 }
 
 /** Inserts a word into the trie. */
 func (this *Trie) Insert(word string) {
+	l1 := len(word)
+	if l1 <= 0 {
+		return
+	}
 
+	p := this
+	for i := 0; i < l1; i++ {
+		id := word[i] - 'a'
+		if p.Node[id] == nil {
+			p.Node[id] = &Trie{}
+		}
+
+		p = p.Node[id]
+	}
+
+	if p != this {
+		p.Total = 1
+	}
+
+	this.Total++
 }
 
 /** Returns if the word is in the trie. */
 func (this *Trie) Search(word string) bool {
+	l1 := len(word)
+	if l1 <= 0 {
+		return true
+	}
 
+	p := this
+	for i := 0; i < l1; i++ {
+		id := word[i] - 'a'
+		if p.Node[id] == nil {
+			return false
+		}
+		p = p.Node[id]
+	}
+	if p.Total != 1 {
+		return false
+	}
+
+	return true
 }
 
 /** Returns if there is any word in the trie that starts with the given prefix. */
 func (this *Trie) StartsWith(prefix string) bool {
+	l1 := len(prefix)
+	if l1 <= 0 {
+		return true
+	}
 
+	p := this
+	for i := 0; i < l1; i++ {
+		id := prefix[i] - 'a'
+		if p.Node[id] == nil {
+			return false
+		}
+		p = p.Node[id]
+	}
+
+	return true
 }
 
 /**
@@ -69,4 +122,3 @@ func (this *Trie) StartsWith(prefix string) bool {
  * param_3 := obj.StartsWith(prefix);
  */
 // @lc code=end
-

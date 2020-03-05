@@ -33,48 +33,44 @@
  */
 
 // @lc code=start
-// func generateParenthesis(n int) []string {
-
-// 	var res []string
-// 	generateParenthesis_(n, "", n, &res)
-// 	return res
-// }
-
-// func generateParenthesis_(n int, path string, totalN int, res *[]string) {
-// 	l1 := len(path)
-// 	if l1 == (totalN << 1) {
-// 		*res = append(*res, path)
-// 		return
-// 	}
-
-// 	if n > 0 {
-// 		generateParenthesis_(n-1, path+"(", totalN, res)
-// 		if l1 < ((totalN - n) << 1) {
-// 			generateParenthesis_(n, path+")", totalN, res)
-// 		}
-
-// 	} else {
-// 		generateParenthesis_(n, path+")", totalN, res)
-// 	}
-// }
-
 func generateParenthesis(n int) []string {
-	res := [][]string{{""}}
-	for i := 1; i <= n; i++ {
-		for j := 0; j < i; j++ {
-			for _, s1 := range res[j] {
-				for _, s2 := range res[i-1-j] {
-					if len(res) < i+1 {
-						res = append(res, []string{})
-					}
-					res[i] = append(res[i], "("+s1+")"+s2)
-				}
-			}
-		}
-	}
 
-	return res[n]
+	var res []string
+	generateParenthesis_(n, "", n, &res)
+	return res
 }
 
-// @lc code=end
+func generateParenthesis_(n int, path string, totalN int, res *[]string) {
+	l1 := len(path)
+	if l1 == (totalN << 1) {
+		*res = append(*res, path)
+		return
+	}
 
+	if n > 0 {
+		generateParenthesis_(n-1, path+"(", totalN, res)
+	}
+	if l1 < ((totalN - n) << 1) {
+		generateParenthesis_(n, path+")", totalN, res)
+	}
+}
+
+// func generateParenthesis(n int) []string {
+// 	res := [][]string{{""}}
+// 	for i := 1; i <= n; i++ {
+// 		for j := 0; j < i; j++ {
+// 			for _, s1 := range res[j] {
+// 				for _, s2 := range res[i-1-j] {
+// 					if len(res) < i+1 {
+// 						res = append(res, []string{})
+// 					}
+// 					res[i] = append(res[i], "("+s1+")"+s2)
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	return res[n]
+// }
+
+// @lc code=end

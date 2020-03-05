@@ -84,6 +84,45 @@
  * func (this *MountainArray) get(index int) int {}
  * func (this *MountainArray) length() int {}
  */
+
+// this is good, use it
+//  class Solution {
+// 	public:
+// 		int findInMountainArray(int target, MountainArray& mountainArr) {
+// 			int size = mountainArr.length();
+// 			int peak = binarySearchPeak(1, size - 1, mountainArr);
+// 			int ret = binarySearch(0, peak + 1, target, mountainArr, less<int>());
+// 			if (ret == -1) ret = binarySearch(peak + 1, size, target, mountainArr, greater<int>());
+// 			return ret;
+// 		}
+
+// 		int binarySearchPeak(int begin, int end, MountainArray& mountainArr) {
+// 			int mid = 0;
+// 			while (begin < end) {
+// 				mid = ((begin + end) >> 1);
+// 				int a = mountainArr.get(mid - 1);
+// 				int b = mountainArr.get(mid);
+// 				int c = mountainArr.get(mid + 1);
+// 				if (a < b && b < c) begin = mid + 1;
+// 				else if (a > b && b > c) end = mid;
+// 				else break;
+// 			}
+// 			return mid;
+// 		}
+
+// 		template<class Comp>
+// 		int binarySearch(int begin, int end, int target, MountainArray& mountainArr, Comp comp) {
+// 			int mid = 0, midVal = 0;
+// 			while (begin < end) {
+// 				mid = ((begin + end) >> 1);
+// 				midVal = mountainArr.get(mid);
+// 				if (midVal == target) break;
+// 				else if (comp(midVal, target)) begin = mid + 1;
+// 				else end = mid;
+// 			}
+// 			return midVal == target ? mid : -1;
+// 		}
+// 	};
 func findInMountainArray(target int, mountainArr *MountainArray) int {
 	l1 := mountainArr.length()
 	if l1 <= 0 {
@@ -152,4 +191,3 @@ func findInMountainArray_(target int, mountainArr *MountainArray, begin, end int
 }
 
 // @lc code=end
-

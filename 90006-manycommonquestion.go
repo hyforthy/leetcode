@@ -1,4 +1,3 @@
-
 import (
 	"fmt"
 	"math"
@@ -50,7 +49,7 @@ func MaxSubArraySum(array []int) int {
 	cur := array[0]
 	max := cur
 
-	for i := 0; i < l; i++ {
+	for i := 1; i < l; i++ {
 		if cur >= 0 {
 			cur += array[i]
 		} else {

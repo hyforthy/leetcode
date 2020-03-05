@@ -92,15 +92,19 @@
 //     vector<int> data, block;
 // };
 
+// 树状性质：对于节点i,
+// 如果他是左子结点，那么父节点的编号就是i+lowbit(i)；
+// 如果它是右子节点，那么父节点的编号是i-lowbit(i)。
+//
 class NumArray
 {
-  public:
+public:
     NumArray(vector<int> nums)
     {
-        
+
         data.resize(nums.size());
         bit.resize(nums.size() + 1);
-        /* 构造树状数组 */
+        /* 构造树状数组(二叉索引树，binary index tree，又名树状数组) */
         for (int i = 0; i < nums.size(); i++)
         {
             update(i, nums[i]);
@@ -133,10 +137,9 @@ class NumArray
         return res;
     }
 
-  private:
+private:
     vector<int> data, bit;
 };
-
 
 // class NumArray {
 // public:
@@ -145,7 +148,7 @@ class NumArray
 //         tree.resize(n * 2);
 //         buildTree(nums);
 //     }
-        /* 线段树 */
+/* 线段树 */
 //     void buildTree(vector<int>& nums) {
 //         for (int i = n; i < n * 2; ++i) {
 //             tree[i] = nums[i - n];
@@ -170,7 +173,7 @@ class NumArray
 //             if ((j & 1) == 0) sum += tree[j--];
 //         }
 //         return sum;
-//     }    
+//     }
 
 // private:
 //     int n;

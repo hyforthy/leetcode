@@ -81,7 +81,7 @@ func canIWin_(maxChoosableInteger int, desiredTotal int, used int, m map[int]boo
 			return true
 		}
 
-		if !canIWin_(maxChoosableInteger, desiredTotal-1-i, used|cur, m) {
+		if !canIWin_(maxChoosableInteger, desiredTotal-1-i, used|cur, m) { // 第二个选手赢不了时
 			m[used] = true
 			return true
 		}
@@ -91,4 +91,3 @@ func canIWin_(maxChoosableInteger int, desiredTotal int, used int, m map[int]boo
 }
 
 // @lc code=end
-

@@ -63,4 +63,3 @@ func findMin(nums []int) int {
 }
 
 // @lc code=end
-

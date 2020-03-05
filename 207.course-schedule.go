@@ -59,10 +59,10 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	dMap := make(map[int][]int)
 
 	for i := 0; i < l1; i++ {
-		if _, ok := dMap[prerequisites[i][0]]; !ok {
-			dMap[prerequisites[i][0]] = []int{prerequisites[i][1]}
+		if _, ok := dMap[prerequisites[i][1]]; !ok {
+			dMap[prerequisites[i][1]] = []int{prerequisites[i][0]}
 		} else {
-			dMap[prerequisites[i][0]] = append(dMap[prerequisites[i][0]], prerequisites[i][1])
+			dMap[prerequisites[i][1]] = append(dMap[prerequisites[i][1]], prerequisites[i][0])
 		}
 	}
 
@@ -87,8 +87,6 @@ func canFinish_(course int, path, done map[int]bool, dMap map[int][]int) bool {
 	}
 
 	path[course] = true
-	done[course] = true
-
 	for _, v := range dMap[course] {
 		r := canFinish_(v, path, done, dMap)
 		if r == false {
@@ -96,8 +94,9 @@ func canFinish_(course int, path, done map[int]bool, dMap map[int][]int) bool {
 		}
 	}
 	path[course] = false
+
+	done[course] = true
 	return true
 }
 
 // @lc code=end
-
